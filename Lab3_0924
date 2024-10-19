@@ -1,0 +1,45 @@
+import sys
+
+def find_subarray_with_zero_sum(arr):
+    # Check if the array size is valid
+    if not (1 <= len(arr) <= 10):
+        return "Array size must be between 1 and 10"
+    
+    # Check if all elements are within the valid range and are integers
+    for num in arr:
+        if not isinstance(num, int):
+            return "Array elements must be integers"
+        if num < -10 or num > 10:
+            return "Array elements must be from -10 to 10"
+    
+    # Initialize a set to store cumulative sums
+    cumulative_sum = 0
+    seen_sums = set()
+    
+    # Iterate through the array to check for a subarray with zero sum
+    for num in arr:
+        cumulative_sum += num
+        
+        # If cumulative_sum is 0 or seen before, we found a subarray with sum zero
+        if cumulative_sum == 0 or cumulative_sum in seen_sums:
+            return f"True\n{len(arr)}"
+        
+        # Store the cumulative sum
+        seen_sums.add(cumulative_sum)
+    
+    # No subarray with zero sum found
+    return f"False\n{len(arr)}"
+
+# Input processing
+try:
+    # Input as a single line of space-separated integers
+    input_arr = list(map(int, input().split()))
+    
+    # Call the function and get the result
+    result = find_subarray_with_zero_sum(input_arr)
+    print(result)
+
+except ValueError:
+    print("Array elements must be integers")
+
+                                                                                                                            
