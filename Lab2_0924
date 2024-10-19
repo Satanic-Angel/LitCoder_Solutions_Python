@@ -1,0 +1,28 @@
+import sys
+
+def test_devices(hours, devices):
+    if hours < 4:
+        return "Invalid Input"
+    
+    # Calculate number of devices that can be tested
+    tested_devices = hours // 4
+    # If the number of devices to be tested is smaller than tested devices in the time, adjust it
+    tested_devices = min(tested_devices, devices)
+    
+    remaining_devices = devices - tested_devices
+    
+    return f"{tested_devices}\n{remaining_devices}"
+
+# Input section
+try:
+    available_hours = int(input("Enter available hours: "))
+    total_devices = int(input("Enter total number of devices: "))
+    
+    # Get the output
+    result = test_devices(available_hours, total_devices)
+    print(result)
+
+except ValueError:
+    print("Invalid Input")
+
+    
