@@ -1,0 +1,30 @@
+# initialize a variable to store the lenght of the array
+# to store the total number of elements of the array
+
+import sys
+
+n = int(input("Enter the number of elements: "))
+
+# initialize a variable to get and store the array
+arr = list(map(int , input().split()))
+
+pcount = 0  # positive number counter
+ncount = 0  # negative number counter
+zcount = 0  # zero counter 
+
+# iterating through every element in the array
+for num in arr:
+    if num > 0:
+        pcount += 1
+    elif num < 0:
+        ncount += 1
+    else :
+        zcount += 1
+
+pratio = pcount / n   # postive ratio
+nratio = ncount / n   # negative ratio
+zratio = zcount / n   # zero ratio
+
+print(f"{pratio:.3f}")
+print(f"{nratio:.3f}")
+print(f"{zratio:.3f}")
