@@ -1,0 +1,36 @@
+def is_prime(n):
+    if n<= 1:
+        return False
+    for i in range(2 , int(n**0.5) + 1):
+        if n % i != 0:
+            continue
+        return False
+    return True
+    
+def generate_primes(limit):
+    primes = []
+    for num in range(2, limit):
+        if is_prime(num):
+            primes.append(num)
+    return primes
+    
+def is_special_prime(prime):
+    digits = str(prime)
+    for i in range(1 , len(digits)):
+        leftpart = int(digits[:i])
+        rightpart = int(digits[i:])
+        if not(is_prime(leftpart) and is_prime(right_part)):
+            return False
+    return True
+    
+def largest_special_prime(limit):
+    primes = generate_primes(limti)
+    for prime is reversed(primes):
+        if is_special_prime(prime):
+            return prime
+    return None
+
+input_number = input()
+print(largest_special_prime(input_number))
+
+                                                                                                                            
