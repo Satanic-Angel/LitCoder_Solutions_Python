@@ -1,0 +1,29 @@
+import sys
+def doSomething(arr , divisor):
+    #Do Something
+    # to store the remainder count
+    remainder_count = [0] * divisor
+    for num in arr:
+        remainder = num % divisor
+        remainder_count[remainder] += 1
+        
+    # to store the valid pair counts
+    count = 0
+    
+    # if both the pair numbers are divisible by the divisor
+    count += remainder_count[0] * (remainder_count[0] - 1) // 2
+    
+    # pair other remainders
+    for i in range(1 , (divisor // 2) + 1):
+        if i != divisor - i:
+            count += remainder_count[i] * remainder_count[divisor - i]
+    
+    # if divisor is 2 and pair numbers have remaninder as a multiple of 2        
+    if divisor % 2 == 0:
+        count += remainder_count[divisor // 2] * (remainder_count[divisor // 2] - 1) // 2
+    return count
+   
+    
+divisor = int(input())
+arr = list(map(int , input().split()))
+print(doSomething(arr , divisor))
