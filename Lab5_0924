@@ -1,0 +1,72 @@
+def decode_pin(pin_input):
+    # Mapping odd digits to their respective alphabet
+    odd_to_alpha = {1: 'a', 3: 'c', 5: 'e', 7: 'g', 9: 'i'}
+    
+    # Split input string into numbers
+    pin_numbers = pin_input.split()
+    result = []
+    
+    for num in pin_numbers:
+        # Calculate cumulative sum of digits until a single digit is obtained
+        while int(num) >= 10:
+            num = str(sum(int(digit) for digit in num))
+        
+        # Convert to an integer and check if it's odd
+        single_digit = int(num)
+        if single_digit in odd_to_alpha:
+            result.append(odd_to_alpha[single_digit])  # Replace odd digits
+        else:
+            result.append(num)  # Keep even digits as they are
+    
+    # Join the list into a string to get the final decoded PIN
+    return ''.join(result)
+
+# Example usage
+input_pin = "145 875 695 214 12 1"
+print(decode_pin(input_pin))  # Output: a22gca
+
+
+a different approach for the same concept is
+def cumulative_sum_to_single_digit(num):
+    # Function to reduce a number to a single digit by cumulative sum of its digits
+    while num >= 10:  # Loop until we get a single digit
+        num = sum(int(digit) for digit in str(num))  # Sum of digits
+    return num
+
+def replace_odd_with_alphabets(pin):
+    # Function to replace odd digits with corresponding alphabets
+    result = []
+    for char in pin:
+        if char.isdigit():
+            digit = int(char)
+            if digit % 2 != 0:  # Check if odd
+                result.append(chr(96 + digit))  # Replace odd number with alphabet
+            else:
+                result.append(str(digit))  # Keep even number as is
+        else:
+            result.append(char)  # Keep non-digit characters unchanged
+    return ''.join(result)
+
+def decode_pin(pin_input):
+    # Split the input string into numbers, calculate cumulative sums and replace odd digits
+    pin_numbers = pin_input.split()
+    decoded_pin = []
+    
+    for num in pin_numbers:
+        # Find the cumulative sum of the digits until it's a single digit
+        single_digit = cumulative_sum_to_single_digit(int(num))
+        # Append the single digit to the list as a string
+        decoded_pin.append(str(single_digit))
+    
+    # Join the decoded pin parts into a single string
+    pin_string = ''.join(decoded_pin)
+    
+    # Replace odd numbers with their respective alphabets
+    final_pin = replace_odd_with_alphabets(pin_string)
+    
+    return final_pin
+
+# Example usage
+input_pin = "145 875 695 214 12 1"
+print(decode_pin(input_pin))  # Output should be 'a22gca'
+
