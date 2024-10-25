@@ -1,0 +1,18 @@
+from collections import Counter
+
+def most_common_plant(sightings):
+    # Count occurrences of each plant ID
+    count = Counter(sightings)
+    
+    # Find the maximum occurrence count
+    max_count = max(count.values())
+    
+    # Filter for plant IDs with the maximum count, then choose the smallest ID
+    most_common_id = min(plant_id for plant_id, cnt in count.items() if cnt == max_count)
+    
+    return most_common_id
+
+# Test cases
+arr = list(map(int , input().split()))
+
+print(most_common_plant(arr))
