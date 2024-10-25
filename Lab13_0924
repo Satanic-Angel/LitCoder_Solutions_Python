@@ -1,0 +1,54 @@
+import sys
+ 
+class CustomQueue:
+    def __init__(self):
+        # Stack 1 for enqueue operations, Stack 2 for dequeue operations
+        self.stack1 = []
+        self.stack2 = []
+
+    def enqueue(self, x):
+        # Push element onto stack1
+        self.stack1.append(x)
+
+    def dequeue(self):
+        # Move elements from stack1 to stack2 if stack2 is empty
+        if not self.stack2:
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
+        # Pop element from stack2 if it has elements
+        if self.stack2:
+            self.stack2.pop()
+
+    def print_front(self):
+        # Ensure the front of the queue is in stack2 for access
+        if not self.stack2:
+            while self.stack1:
+                self.stack2.append(self.stack1.pop())
+        # Print the front element if it exists
+        if self.stack2:
+            print(self.stack2[-1])
+
+# Function to process commands from console input
+def process_commands(commands):
+    queue = CustomQueue()
+
+    for command in commands:
+        parts = command.split()
+        cmd_type = int(parts[0])
+
+        if cmd_type == 1:
+            # Enqueue command
+            queue.enqueue(int(parts[1]))
+        elif cmd_type == 2:
+            # Dequeue command
+            queue.dequeue()
+        elif cmd_type == 3:
+            # Print front command
+            queue.print_front()
+
+# Taking commands input from the console
+input_commands = input().split(',')
+
+# Process the commands
+process_commands(input_commands)
+                                                                                                                            
