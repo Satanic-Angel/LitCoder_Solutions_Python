@@ -1,0 +1,31 @@
+def max_value_after_operations(n, queries):
+    # Initialize array with 0
+    arr = [0] * (n + 1)  # One extra element to handle end+1 indexing
+
+    # Apply each operation using the difference array approach
+    for start, end, value in queries:
+        arr[start - 1] += value  # Add value at the start (convert to 0-indexed)
+        if end < n:
+            arr[end] -= value  # Subtract value just after the end index
+
+    # Calculate the final values and find the maximum
+    max_value = 0
+    current_value = 0
+    for i in range(n):
+        current_value += arr[i]
+        if current_value > max_value:
+            max_value = current_value
+
+    return max_value
+
+# test cases
+n = int(input())
+q = int(input())
+
+queries = []
+for _ in range(q):
+    start, end, value = map(int, input().split())
+    queries.append((start, end, value))
+print(max_value_after_operations(n, queries))  # Expected output: 23
+
+                                                                                                                            
