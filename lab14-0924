@@ -1,0 +1,31 @@
+import sys
+
+def canTransform(start, end):
+    # Check if the strings have the same length and the same pattern of 'L' and 'R'
+    if len(start) != len(end) or start.replace('X', '') != end.replace('X', ''):
+        return False
+
+    # Check the positions of 'L' and 'R' in both strings
+    start_L_positions = [i for i, c in enumerate(start) if c == 'L']
+    end_L_positions = [i for i, c in enumerate(end) if c == 'L']
+    start_R_positions = [i for i, c in enumerate(start) if c == 'R']
+    end_R_positions = [i for i, c in enumerate(end) if c == 'R']
+
+    # Ensure 'L' can only move left, and 'R' can only move right
+    for s, e in zip(start_L_positions, end_L_positions):
+        if s < e:
+            return False
+    for s, e in zip(start_R_positions, end_R_positions):
+        if s > e:
+            return False
+
+    return True
+
+# Taking input from the console
+start = input().strip()
+end = input().strip()
+
+# Check if transformation is possible
+print(canTransform(start, end))
+# print(result)
+                                                                                                                            
