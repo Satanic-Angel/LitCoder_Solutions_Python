@@ -18,7 +18,7 @@ def max_value_after_operations(n, queries):
 
     return max_value
 
-# test cases
+# here we enter the test cases
 n = int(input())
 q = int(input())
 
