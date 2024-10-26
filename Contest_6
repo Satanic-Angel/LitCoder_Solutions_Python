@@ -1,0 +1,68 @@
+import sys
+
+def get_stock_combinations(budget, stocks):
+    # Validate inputs
+    try:
+        budget = int(budget)
+    except ValueError:
+        return "Invalid Input"
+
+    if budget <= 0:
+        return "Invalid Input"
+    
+    for name, price in stocks:
+        try:
+            price = int(price)
+        except ValueError:
+            return "Invalid Input"
+        if price <= 0:
+            return "The stock prices should be at least greater than 0"
+        if price > budget:
+            return "One of the stock prices is higher than the target price"
+    
+    # Recursive function to find all valid combinations
+    def find_combinations(index, current_combination, current_cost):
+        if current_cost == budget:
+            valid_combinations.append(current_combination[:])
+            return
+        if index >= len(stocks) or current_cost > budget:
+            return
+
+        max_qty = min(5, (budget - current_cost) // stocks[index][1])
+
+        for qty in range(max_qty + 1):
+            current_combination[index] = qty
+            find_combinations(index + 1, current_combination, current_cost + qty * stocks[index][1])
+            current_combination[index] = 0
+
+    # Initial setup for the recursive search
+    valid_combinations = []
+    find_combinations(0, [0] * len(stocks), 0)
+
+    # Sort combinations as per problem constraints
+    valid_combinations = sorted(valid_combinations)
+
+    # Output format
+    result = "\n".join(" ".join(map(str, comb)) for comb in valid_combinations)
+    result += f"\n{len(valid_combinations)}"
+    return result
+
+
+# Input handling
+try:
+    budget = input("Enter your maximum budget: ").strip()
+    num_stocks = int(input("Enter the number of stocks: ").strip())
+    stocks = []
+
+    for _ in range(num_stocks):
+        stock_data = input().strip().split()
+        name = stock_data[0]
+        price = stock_data[1]
+        stocks.append((name, price))
+
+    # Call the function
+    output = get_stock_combinations(budget, stocks)
+    print(output)
+
+except ValueError:
+    print("Invalid Input")
