@@ -1,0 +1,27 @@
+import sys
+def maxActivities(start, end):
+    # Combine start and end times into a list of tuples and sort by end time
+    activities = sorted(zip(start, end), key=lambda x: x[1])
+    selected_activities = []
+    
+    # Initialize the end time of the last selected activity
+    last_finish_time = -1
+    
+    for s, f in activities:
+        if s >= last_finish_time:
+            selected_activities.append((s, f))
+            last_finish_time = f
+    
+    return selected_activities
+
+# Input handling
+n = int(input())
+start = list(map(int, input().split()))
+end = list(map(int, input().split()))
+
+# Get the maximum set of non-overlapping activities
+result = maxActivities(start, end)
+
+# Print the results
+for s, f in result:
+    print(s, f)
