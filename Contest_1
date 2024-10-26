@@ -1,0 +1,36 @@
+import sys
+
+def num_tile_possibilities(tiles):
+    # Helper function for backtracking to generate sequences
+    def backtrack(path, counter):
+        if path:
+            unique_sequences.add("".join(path))
+        for tile in counter:
+            if counter[tile] > 0:
+                # Choose the tile and use it
+                path.append(tile)
+                counter[tile] -= 1
+                
+                # Recurse
+                backtrack(path, counter)
+                
+                # Backtrack: undo the choice
+                path.pop()
+                counter[tile] += 1
+
+    # Initialize the set to store unique sequences
+    unique_sequences = set()
+    
+    # Count the occurrences of each tile
+    from collections import Counter
+    counter = Counter(tiles)
+    
+    # Start the backtracking process
+    backtrack([], counter)
+    
+    # The total count of unique sequences
+    return len(unique_sequences)
+
+# Input processing
+tiles = input().strip()
+print(num_tile_possibilities(tiles))
