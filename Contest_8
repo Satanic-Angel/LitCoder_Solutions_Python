@@ -1,0 +1,47 @@
+import sys
+def merge_linked_lists(n1, list1, n2, list2):
+    merged_list = []
+    
+    # Get the minimum length to alternate merging
+    min_length = min(n1, n2)
+    
+    # Alternate merging
+    for i in range(min_length):
+        merged_list.append(list1[i])
+        merged_list.append(list2[i])
+    
+    # If list1 is longer, add the remaining elements
+    if n1 > n2:
+        merged_list.extend(list1[min_length:])
+    # If list2 is longer, add the remaining elements
+    elif n2 > n1:
+        merged_list.extend(list2[min_length:])
+    
+    return merged_list
+
+def main():
+    # Read the size of the first list
+    n1 = int(input())
+    list1 = []
+    
+    # Read the elements of the first list
+    for _ in range(n1):
+        list1.append(input().strip())
+    
+    # Read the size of the second list
+    n2 = int(input())
+    list2 = []
+    
+    # Read the elements of the second list
+    for _ in range(n2):
+        list2.append(input().strip())
+    
+    # Merge the two lists
+    merged_list = merge_linked_lists(n1, list1, n2, list2)
+    
+    # Print the merged list
+    for item in merged_list:
+        print(item)
+
+if __name__ == "__main__":
+    main()
