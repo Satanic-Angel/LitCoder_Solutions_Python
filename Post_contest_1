@@ -1,0 +1,30 @@
+def chunk_and_sort(arr):
+    chunks = []
+    current_chunk = []
+    max_seen = -1
+    
+    for num in arr:
+        current_chunk.append(num)
+        max_seen = max(max_seen, num)
+        
+        # If the current maximum matches the index of the current number,
+        # we can consider this as a complete chunk.
+        if max_seen == len(current_chunk) - 1:
+            chunks.append(current_chunk)
+            current_chunk = []
+    
+    return chunks
+
+def main():
+    # Read the input as a list of integers
+    arr = list(map(int, input().split()))
+    
+    # Get the chunks
+    chunks = chunk_and_sort(arr)
+    
+    # Print each chunk
+    for chunk in chunks:
+        print(" ".join(map(str, chunk)))
+
+if __name__ == "__main__":
+    main()
