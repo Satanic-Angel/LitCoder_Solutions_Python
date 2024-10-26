@@ -1,0 +1,41 @@
+import sys
+
+def isBipartite(graph):
+    n = len(graph)
+    color = [-1] * n  # -1 indicates uncolored
+
+    for start in range(n):
+        if color[start] == -1:  # If this node has not been colored yet
+            queue = [start]
+            color[start] = 0  # Start coloring with color 0
+
+            while queue:
+                node = queue.pop(0)
+                for neighbor in graph[node]:
+                    if color[neighbor] == -1:  # If the neighbor hasn't been colored
+                        color[neighbor] = 1 - color[node]  # Assign opposite color
+                        queue.append(neighbor)
+                    elif color[neighbor] == color[node]:  # If the neighbor has the same color
+                        return False  # Not bipartite
+
+    return True  # All components checked and valid
+
+def main():
+    n = int(input())
+    graph = []
+
+    print()
+    for i in range(n):
+        # Read the neighbors of node i as a space-separated string,
+        # then convert to a list of integers
+        neighbors = list(map(int, input().strip().split()))
+        graph.append(neighbors)
+
+    # Check if the graph is bipartite and print the result
+    if isBipartite(graph):
+        print("true")
+    else:
+        print("false")
+
+if __name__ == "__main__":
+    main()
