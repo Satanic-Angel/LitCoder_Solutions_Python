@@ -1,0 +1,49 @@
+def merge_intervals(startTimes, endTimes):
+    # Check if input lengths match the constraints
+    if len(startTimes) != len(endTimes) or len(startTimes) <= 1:
+        return "Invalid Input"
+    
+    # Combine start and end times into a list of intervals
+    intervals = []
+    invalid_count = 0
+    for start, end in zip(startTimes, endTimes):
+        if start >= end:
+            invalid_count += 1
+        else:
+            intervals.append((start, end))
+    
+    # Sort intervals by starting times for merging
+    intervals.sort()
+    
+    # Merge overlapping intervals
+    merged = []
+    for interval in intervals:
+        if not merged or merged[-1][1] < interval[0]:
+            merged.append(interval)
+        else:
+            # Merge overlapping interval
+            merged[-1] = (merged[-1][0], max(merged[-1][1], interval[1]))
+    
+    # Count non-overlapping intervals
+    non_overlap_count = len(merged)
+    
+    # Prepare output
+    merged_intervals = []
+    for start, end in merged:
+        merged_intervals.extend([start, end])
+    
+    return merged_intervals, non_overlap_count, invalid_count
+
+# Input handling
+startTimes = list(map(int, input("Enter the start times: ").split()))
+endTimes = list(map(int, input("Enter the end times: ").split()))
+
+# Run the function and print the results
+result = merge_intervals(startTimes, endTimes)
+if result == "Invalid Input":
+    print(result)
+else:
+    merged_intervals, non_overlap_count, invalid_count = result
+    print(" ".join(map(str, merged_intervals)))
+    print(non_overlap_count)
+    print(invalid_count)
